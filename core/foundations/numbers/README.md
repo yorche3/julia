@@ -12,8 +12,8 @@ Implementa los algoritmos de suma de los primeros n números, factorial, Fibonac
 |----------------------|-----------|
 | [`Project.toml`](Project.toml) | Manifiesto del paquete (nombre, UUID y target de test). |
 | [`src/Numbers.jl`](src/Numbers.jl) | Único archivo fuente: los 3 enfoques y los helpers `_help`. |
-| [`test/recursive_tests.jl`](test/recursive_tests.jl) | Suite del enfoque recursivo (`_rec`): 11 casos. |
-| [`test/iterative_tests.jl`](test/iterative_tests.jl) | Suite del enfoque iterativo (`_ite`): 11 casos. |
+| [`test/recursive_tests.jl`](test/recursive_tests.jl) | Suite del enfoque recursivo (`_rec`): 5 tests, 11 casos. |
+| [`test/iterative_tests.jl`](test/iterative_tests.jl) | Suite del enfoque iterativo (`_ite`): 5 tests, 11 casos. |
 | [`test/run_tests.jl`](test/run_tests.jl) | Punto de entrada que carga el módulo y ejecuta las dos suites. |
 
 **Estructura de directorios esperada:**
@@ -24,8 +24,8 @@ numbers/
 ├── src/
 │   └── Numbers.jl             # Único archivo: 3 enfoques en 1 + helpers
 ├── test/
-│   ├── recursive_tests.jl     # Tests: enfoque recursivo (11)
-│   ├── iterative_tests.jl     # Tests: enfoque iterativo (11)
+│   ├── recursive_tests.jl     # Tests: enfoque recursivo (5 tests, 11 casos)
+│   ├── iterative_tests.jl     # Tests: enfoque iterativo (5 tests, 11 casos)
 │   └── run_tests.jl           # Punto de entrada de las pruebas
 └── README.md                  # Este archivo
 ```
@@ -173,23 +173,22 @@ end # module Numbers
 
 ### `test/recursive_tests.jl` y `test/iterative_tests.jl` — Suites
 
-**ES:** Cada suite cubre los 11 casos de la especificación para su enfoque. Los `@testset` se incluyen desde `run_tests.jl`, que ya cargó el módulo.
+**ES:** Cada suite cubre los 11 casos de la especificación para su enfoque, agrupados en un `@testset` por función (5 por suite). Los `@testset` se incluyen desde `run_tests.jl`, que ya cargó el módulo.
 
-**EN:** Each suite covers the specification's 11 cases for its approach. The `@testset`s are included from `run_tests.jl`, which already loaded the module.
+**EN:** Each suite covers the specification's 11 cases for its approach, grouped into one `@testset` per function (5 per suite). The `@testset`s are included from `run_tests.jl`, which already loaded the module.
 
 ```julia
 @testset "recursive" begin
-    @test sum_of_first_n_rec(0) == 0
-    @test sum_of_first_n_rec(3) == 6
-    @test factorial_rec(0) == 1
-    @test factorial_rec(4) == 24
-    @test fibonacci_rec(0) == 0
-    @test fibonacci_rec(1) == 1
-    @test fibonacci_rec(6) == 8
-    @test greatest_common_divisor_rec(12, 8) == 4
-    @test greatest_common_divisor_rec(7, 5) == 1
-    @test least_common_multiple_rec(4, 6) == 12
-    @test least_common_multiple_rec(6, 8) == 24
+    @testset "fibonacci" begin
+        @test fibonacci_rec(0) == 0
+        @test fibonacci_rec(1) == 1
+        @test fibonacci_rec(6) == 8
+    end
+
+    @testset "least_common_multiple" begin
+        @test least_common_multiple_rec(4, 6) == 12
+        @test least_common_multiple_rec(6, 8) == 24
+    end
 end
 ```
 
@@ -239,8 +238,11 @@ julia --project=. -e 'using Pkg; Pkg.test()'
 
 ```text
 Test Summary: | Pass  Total  Time
-Numbers Tests |   22     22  0.0s
+Numbers Tests |   22     22  0.1s
 ```
+
+> **ES:** Julia cuenta 22 aserciones (`@test`), agrupadas en 5 `@testset` por suite (uno por función).
+> **EN:** Julia counts 22 assertions (`@test`), grouped into 5 `@testset`s per suite (one per function).
 
 > **ES:** La primera ejecución de `Pkg.test()` genera `Manifest.toml` automáticamente; el archivo está ignorado por git (`julia/.gitignore`), como es convención en los paquetes de Julia.
 > **EN:** The first `Pkg.test()` run generates `Manifest.toml` automatically; the file is git-ignored (`julia/.gitignore`), as is convention for Julia packages.
@@ -258,7 +260,7 @@ En Julia **no se garantiza TCO**: el compilador puede optimizar algunas auto-lla
 
 Por eso, la implementación con acumulador (`_acc`) se conserva únicamente con fines educativos: sirve como puente conceptual entre la recursión directa (más cercana a la definición matemática) y la versión iterativa (memoria constante O(1)). Como en este contexto no hay un beneficio práctico de rendimiento garantizado, no se desarrollan pruebas unitarias específicas para los métodos con acumulador. La validación del comportamiento se cubre a través de las pruebas de los enfoques recursivo e iterativo, que juntos ejercitan los mismos resultados.
 
-**Combinación aplicada**: TCO ❌ + iteración nativa ✅ → suites `_rec` (11) + `_ite` (11) = **22 pruebas**.
+**Combinación aplicada**: TCO ❌ + iteración nativa ✅ → suites `_rec` (5 tests) + `_ite` (5 tests) = **10 tests, 22 casos**.
 
 **EN:**
 Tail recursion occurs when the recursive call is the last action that runs a function; after the call there are no more instructions and the function returns the result of the recursive call. Recursion with accumulator achieves this by passing the previous state as a parameter to each call, without leaving any pending work on the stack.
@@ -267,7 +269,7 @@ Julia **does not guarantee TCO**: the compiler may optimize some simple self-tai
 
 Therefore, the accumulator implementation (`_acc`) is preserved only for educational purposes: it serves as a conceptual bridge between direct recursion (closer to the mathematical definition) and the iterative version (constant O(1) memory). Since there is no guaranteed practical performance benefit in this context, no dedicated unit tests are developed for the accumulator methods. Behavior validation is covered by the recursive and iterative test suites, which together exercise the same results.
 
-**Applied combination**: TCO ❌ + native iteration ✅ → `_rec` (11) + `_ite` (11) suites = **22 tests**.
+**Applied combination**: TCO ❌ + native iteration ✅ → `_rec` (5 tests) + `_ite` (5 tests) suites = **10 tests, 22 cases**.
 
 ### Otras notas / Other notes
 
