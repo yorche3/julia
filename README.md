@@ -11,6 +11,7 @@ Usa `Project.toml` como manifiesto de paquete, **Pkg** como gestor de paquetes y
 | Módulo | Descripción |
 |--------|-------------|
 | [`core/foundations/`](core/foundations/) | **Fase 0 — Fundamentos**: `helloworld`, `hellouser`, `calculator`, `numbers` |
+| [`core/algorithms/`](core/algorithms/) | **Fase 1 — Algoritmos Puros**: `naive_sort` |
 
 ---
 
@@ -31,6 +32,10 @@ julia --project=. test/CalculatorTest.jl
 
 # Numbers Tests
 cd core/foundations/numbers
+julia --project=. test/run_tests.jl
+
+# Naive Sort Tests
+cd core/algorithms/naive_sort
 julia --project=. test/run_tests.jl
 ```
 
