@@ -107,12 +107,21 @@ end
 """
 Valor de la cabeza, o -1 cuando la lista está vacía (`get_head`).
 """
-get_head(l::LinkedList)::Int = -1
+get_head(l::LinkedList)::Int = isnothing(l.head) ? -1 : l.head.value
 
 """
 Inserta el valor al principio de la lista (`insert_head`).
 """
 function insert_head!(l::LinkedList, value::Int)::LinkedList
+    new_node = Node(value)
+    if isnothing(l.head)
+        l.head = new_node
+        l.tail = new_node
+    else
+        new_node.next = l.head
+        l.head = new_node
+    end
+    l.count += 1
     return l
 end
 
@@ -120,6 +129,15 @@ end
 Inserta el valor al final de la lista (`insert_tail`).
 """
 function insert_tail!(l::LinkedList, value::Int)::LinkedList
+    new_node = Node(value)
+    if isnothing(l.tail)
+        l.head = new_node
+        l.tail = new_node
+    else
+        l.tail.next = new_node
+        l.tail = new_node
+    end
+    l.count += 1
     return l
 end
 
@@ -128,18 +146,36 @@ Elimina la primera aparición del valor (`delete`): `true` cuando estaba y `fals
 cuando no está.
 """
 function delete!(l::LinkedList, value::Int)::Bool
+    previous = nothing
+    current = l.head
+    while !isnothing(current)
+        if current.value == value
+            if isnothing(previous)
+                l.head = current.next
+            else
+                previous.next = current.next
+            end
+            if isnothing(current.next)
+                l.tail = previous
+            end
+            l.count -= 1
+            return true
+        end
+        previous = current
+        current = current.next
+    end
     return false
 end
 
 """
 Número de nodos de la lista (`size`).
 """
-length(l::LinkedList)::Int = 0
+length(l::LinkedList)::Int = l.count
 
 """
 Informa si la lista no tiene nodos (`is_empty`).
 """
-isempty(l::LinkedList)::Bool = false
+isempty(l::LinkedList)::Bool = l.count == 0
 
 # ---------------------------------------------------------------------------
 # Stack
@@ -149,28 +185,45 @@ isempty(l::LinkedList)::Bool = false
 Apila el valor sobre el tope (`push`).
 """
 function push!(s::Stack, value::Int)::Stack
+    new_node = Node(value)
+    if isnothing(s.top)
+        s.top = new_node
+    else
+        new_node.next = s.top
+        s.top = new_node
+    end
+    s.count += 1
     return s
 end
 
 """
 Extrae el tope, o -1 cuando la pila está vacía (`pop`).
 """
-pop!(s::Stack)::Int = -1
+function pop!(s::Stack)::Int
+    if isnothing(s.top)
+        return -1
+    else
+        value = s.top.value
+        s.top = s.top.next
+        s.count -= 1
+        return value
+    end
+end
 
 """
 Observa el tope sin extraerlo, o -1 cuando la pila está vacía (`peek`).
 """
-peek(s::Stack)::Int = -1
+peek(s::Stack)::Int = isnothing(s.top) ? -1 : s.top.value
 
 """
 Número de nodos de la pila (`size`).
 """
-length(s::Stack)::Int = 0
+length(s::Stack)::Int = s.count
 
 """
 Informa si la pila no tiene nodos (`is_empty`).
 """
-isempty(s::Stack)::Bool = false
+isempty(s::Stack)::Bool = s.count == 0
 
 # ---------------------------------------------------------------------------
 # Queue
@@ -180,27 +233,48 @@ isempty(s::Stack)::Bool = false
 Añade el valor por el final de la cola (`enqueue`).
 """
 function enqueue!(q::Queue, value::Int)::Queue
+    new_node = Node(value)
+    if isnothing(q.rear)
+        q.front = new_node
+        q.rear = new_node
+    else
+        q.rear.next = new_node
+        q.rear = new_node
+    end
+    q.count += 1
     return q
 end
 
 """
 Extrae el frente, o -1 cuando la cola está vacía (`dequeue`).
 """
-dequeue!(q::Queue)::Int = -1
+function dequeue!(q::Queue)::Int
+    if isempty(q)
+        return -1
+    else
+        value = q.front.value
+        q.front = q.front.next
+        if isnothing(q.front)
+            q.rear = nothing
+        end
+        q.count -= 1
+        return value
+    end
+end
 
 """
 Observa el frente sin extraerlo, o -1 cuando la cola está vacía (`peek`).
 """
-peek(q::Queue)::Int = -1
+peek(q::Queue)::Int = isnothing(q.front) ? -1 : q.front.value
 
 """
 Número de nodos de la cola (`size`).
 """
-length(q::Queue)::Int = 0
+length(q::Queue)::Int = q.count
 
 """
 Informa si la cola no tiene nodos (`is_empty`).
 """
-isempty(q::Queue)::Bool = false
+isempty(q::Queue)::Bool = q.count == 0
 
 end # module DataStructuresBasics
