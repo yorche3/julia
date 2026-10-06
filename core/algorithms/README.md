@@ -11,6 +11,7 @@ Los módulos de esta fase trabajan sobre `Vector{Int}`, que en Julia **es mutabl
 | Módulo | Especificación | Enfoque | Tests | Estado |
 |--------|---------------|---------|:-----:|:------:|
 | [`naive_sort/`](naive_sort/) | [05_Naive_Sort](https://yorche3.github.io/programming_languages/core/algorithms/05_Naive_Sort/) | `julia --project=.` + `Test` | 24 | ✅ |
+| [`data_structures_basics/`](data_structures_basics/) | [06_Data_Structures_Basics](https://yorche3.github.io/programming_languages/core/algorithms/06_Data_Structures_Basics/) | `julia --project=.` + `Test` | 51 | ✅ |
 
 ---
 
@@ -18,12 +19,20 @@ Los módulos de esta fase trabajan sobre `Vector{Int}`, que en Julia **es mutabl
 
 ```text
 algorithms/
-└── naive_sort/                    # 05_Naive_Sort
+├── naive_sort/                    # 05_Naive_Sort
+│   ├── Project.toml
+│   ├── src/
+│   │   └── NaiveSort.jl           # selection_sort, bubble_sort, insertion_sort
+│   ├── test/
+│   │   ├── naive_sort_tests.jl    # 3 algoritmos × 8 casos
+│   │   └── run_tests.jl           # Entry point
+│   └── README.md
+└── data_structures_basics/        # 06_Data_Structures_Basics
     ├── Project.toml
     ├── src/
-    │   └── NaiveSort.jl           # selection_sort, bubble_sort, insertion_sort
+    │   └── data_structures_basics.jl  # Node, LinkedList, Stack, Queue
     ├── test/
-    │   ├── naive_sort_tests.jl    # 3 algoritmos × 8 casos
+    │   ├── data_structures_basics_tests.jl  # 4 ADT × múltiples casos
     │   └── run_tests.jl           # Entry point
     └── README.md
 ```
@@ -55,6 +64,10 @@ algorithms/
 ```bash
 # Naive Sort Tests
 cd naive_sort
+julia --project=. test/run_tests.jl
+
+# Data Structures Basics Tests
+cd data_structures_basics
 julia --project=. test/run_tests.jl
 ```
 
