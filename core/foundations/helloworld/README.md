@@ -8,13 +8,13 @@ Implementación de la especificación [01_Hello_World](https://yorche3.github.io
 
 | Archivo | Propósito |
 | ------- | --------- |
-| [`helloworld.jl`](helloworld.jl) | Código fuente: imprime `"Hello, World! from Julia!"` en la consola. |
+| [`hello_world.jl`](hello_world.jl) | Código fuente: imprime `"Hello, World! from Julia!"` en la consola. |
 
 **Estructura de directorios esperada:**
 
 ```text
 helloworld/
-├── helloworld.jl   # Código fuente
+├── hello_world.jl   # Código fuente
 └── README.md       # Este archivo
 ```
 
@@ -40,7 +40,7 @@ Características / Features:
    mkdir -p julia/core/foundations/helloworld
    ```
 
-2. Escribir el archivo `helloworld.jl` con el código fuente.
+2. Escribir el archivo `hello_world.jl` con el código fuente.
 
 3. No se necesita ningún paso adicional de construcción o vinculación de dependencias.
 
@@ -57,7 +57,7 @@ println("Hello, World! from Julia!")
 
 | Elemento | Propósito |
 | -------- | --------- |
-| `#!/usr/bin/julia` | Shebang opcional: permite ejecutar el script directamente como `./helloworld.jl` (si el archivo tiene permiso de ejecución). |
+| `#!/usr/bin/julia` | Shebang opcional: permite ejecutar el script directamente como `./hello_world.jl` (si el archivo tiene permiso de ejecución). |
 | `println(...)` | Función de `Base` que imprime el argumento en la salida estándar seguido de un salto de línea. |
 | `"Hello, World! from Julia!"` | Cadena literal que se muestra en la salida estándar. |
 
@@ -85,11 +85,11 @@ curl -fsSL https://install.julialang.org | sh
 ```bash
 # Ejecutar el script directamente (recomendado)
 cd julia/core/foundations/helloworld
-julia helloworld.jl
+julia hello_world.jl
 
 # Alternativa: usar el shebang y el permiso de ejecución
-chmod +x helloworld.jl
-./helloworld.jl
+chmod +x hello_world.jl
+./hello_world.jl
 ```
 
 **Salida esperada / Expected output:**
@@ -102,8 +102,8 @@ Hello, World! from Julia!
 
 ## 📝 Notas de implementación / Implementation Notes
 
-- **ES:** Julia es un lenguaje compilado *just-in-time* (JIT); al ejecutar `julia helloworld.jl` la primera llamada compila el código y las siguientes son rápidas.
-- **EN:** Julia is a *just-in-time* (JIT) compiled language; when running `julia helloworld.jl`, the first invocation compiles the code and subsequent ones are fast.
+- **ES:** Julia es un lenguaje compilado *just-in-time* (JIT); al ejecutar `julia hello_world.jl` la primera llamada compila el código y las siguientes son rápidas.
+- **EN:** Julia is a *just-in-time* (JIT) compiled language; when running `julia hello_world.jl`, the first invocation compiles the code and subsequent ones are fast.
 - **ES:** `println` pertenece al módulo `Base`, que se importa automáticamente en todos los programas de Julia.
 - **EN:** `println` belongs to the `Base` module, which is imported automatically into every Julia program.
 - **ES:** No se necesita `Project.toml` para scripts simples; solo se requiere cuando hay dependencias externas gestionadas con `Pkg`.
