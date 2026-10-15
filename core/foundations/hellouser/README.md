@@ -10,13 +10,13 @@ Lee un nombre desde la entrada estándar y saluda al usuario.
 
 | Archivo | Propósito |
 |---------|-----------|
-| [`hellouser.jl`](hellouser.jl) | Código fuente: solicita un nombre al usuario y saluda. |
+| [`hello_user.jl`](hello_user.jl) | Código fuente: solicita un nombre al usuario y saluda. |
 
 **Estructura de directorios esperada:**
 
 ```text
 hellouser/
-├── hellouser.jl    # Código fuente
+├── hello_user.jl    # Código fuente
 └── README.md       # Este archivo
 ```
 
@@ -38,7 +38,7 @@ hellouser/
 
 ## 📄 Archivos de configuración clave / Key Configuration Files
 
-### `hellouser.jl`
+### `hello_user.jl`
 
 **ES:** El flujo del programa es:
 
@@ -87,7 +87,7 @@ curl -fsSL https://install.julialang.org | sh
 
 ```bash
 cd julia/core/foundations/hellouser
-julia hellouser.jl
+julia hello_user.jl
 ```
 
 **Salida esperada / Expected output:**
