@@ -12,7 +12,8 @@ Implementa 5 operaciones aritméticas (`addition`, `subtraction`, `multiplicatio
 |----------------------|-----------|
 | [`Project.toml`](Project.toml) | Manifiesto del paquete (nombre, UUID y target de test). |
 | [`src/Calculator.jl`](src/Calculator.jl) | Módulo `Calculator` con las 5 operaciones aritméticas. |
-| [`test/CalculatorTest.jl`](test/CalculatorTest.jl) | Punto de entrada de `Pkg.test()`: carga el módulo y ejecuta las 5 pruebas. |
+| [`test/CalculatorTest.jl`](test/CalculatorTest.jl) | Suite de las 5 pruebas: carga el módulo y las ejecuta. |
+| [`test/run_tests.jl`](test/run_tests.jl) | Punto de entrada del repositorio: incluye la suite y la ejecuta. |
 
 **Estructura de directorios esperada:**
 
@@ -22,7 +23,8 @@ calculator/
 ├── src/
 │   └── Calculator.jl          # Módulo con las 5 operaciones aritméticas
 ├── test/
-│   └── CalculatorTest.jl            # Punto de entrada de Pkg.test() con las 5 pruebas
+│   ├── CalculatorTest.jl       # Suite de las 5 pruebas (Pkg.test())
+│   └── run_tests.jl            # Punto de entrada del repositorio
 └── README.md                  # Este archivo
 ```
 
@@ -126,6 +128,12 @@ end # module Calculator
 **ES:** `Pkg.test()` ejecuta automáticamente este archivo (nombre estándar de Julia). Carga el módulo y ejecuta las 5 pruebas agrupadas en `@testset`; también funciona directo con `julia --project=. test/CalculatorTest.jl`.
 
 **EN:** `Pkg.test()` automatically runs this file (Julia's standard name). It loads the module and runs the 5 tests grouped in `@testset`; it also works directly with `julia --project=. test/CalculatorTest.jl`.
+
+### `test/run_tests.jl` — Punto de entrada del repositorio / Repository entry point
+
+**ES:** El repositorio expone el runner de cada módulo en `test/run_tests.jl` —el comando que documenta el catálogo—, como en `04_Numbers`. Este archivo incluye la suite y la ejecuta.
+
+**EN:** The repository exposes each module's runner as `test/run_tests.jl` —the command the catalogue documents—, as in `04_Numbers`. This file includes and runs the suite.
 
 ```julia
 using Test
