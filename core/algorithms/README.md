@@ -12,6 +12,7 @@ Los módulos de esta fase trabajan sobre `Vector{Int}`, que en Julia **es mutabl
 |--------|---------------|---------|:-----:|:------:|
 | [`naive_sort/`](naive_sort/) | [05_Naive_Sort](https://yorche3.github.io/programming_languages/core/algorithms/05_Naive_Sort/) | `julia --project=.` + `Test` | 24 | ✅ |
 | [`data_structures_basics/`](data_structures_basics/) | [06_Data_Structures_Basics](https://yorche3.github.io/programming_languages/core/algorithms/06_Data_Structures_Basics/) | `julia --project=.` + `Test` | 51 | ✅ |
+| [`data_structures_advanced/`](data_structures_advanced/) | [07_Data_Structures_Advanced](https://yorche3.github.io/programming_languages/core/algorithms/07_Data_Structures_Advanced/) | `julia --project=.` + `Test` | 137 | ✅ |
 
 ---
 
@@ -27,12 +28,20 @@ algorithms/
 │   │   ├── naive_sort_tests.jl    # 3 algoritmos × 8 casos
 │   │   └── run_tests.jl           # Entry point
 │   └── README.md
-└── data_structures_basics/        # 06_Data_Structures_Basics
+├── data_structures_basics/        # 06_Data_Structures_Basics
+│   ├── Project.toml
+│   ├── src/
+│   │   └── data_structures_basics.jl  # Node, LinkedList, Stack, Queue
+│   ├── test/
+│   │   ├── data_structures_basics_tests.jl  # 4 ADT × múltiples casos
+│   │   └── run_tests.jl           # Entry point
+│   └── README.md
+└── data_structures_advanced/      # 07_Data_Structures_Advanced
     ├── Project.toml
     ├── src/
-    │   └── data_structures_basics.jl  # Node, LinkedList, Stack, Queue
+    │   └── data_structures_advanced.jl  # TreeNode, BinaryTree, Graph
     ├── test/
-    │   ├── data_structures_basics_tests.jl  # 4 ADT × múltiples casos
+    │   ├── data_structures_advanced_tests.jl  # Suites de BinaryTree y Graph
     │   └── run_tests.jl           # Entry point
     └── README.md
 ```
@@ -68,6 +77,10 @@ julia --project=. test/run_tests.jl
 
 # Data Structures Basics Tests
 cd data_structures_basics
+julia --project=. test/run_tests.jl
+
+# Data Structures Advanced Tests
+cd data_structures_advanced
 julia --project=. test/run_tests.jl
 ```
 
