@@ -1,0 +1,13 @@
+name = "data_structures_advanced"
+uuid = "7d16d57f-5f8c-4c3d-8318-30882db1d959"
+version = "0.1.0"
+authors = ["yorche3 <hyaoki123@gmail.com>"]
+
+[compat]
+julia = "1.10"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
